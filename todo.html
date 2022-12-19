@@ -1,33 +1,37 @@
 <html>
-    <head>
-        <title>My ToDo App</title>
-    </head>
-    <body>
-        <button>Press Me</button>
+  <head>
+    <title>My Todo App</title>
+  </head>
+  <body>
+    <input id="todo-title" type="text" />
+    <button onclick="addTodo()">Add Todo</button>
 
-        <script>
-            let todo1 = 'Get groceries';
-            let todo2 = 'Wash car';
-            let todo3 = 'Make dinner';
-            let todo4 = 'Do laundry';
+    <div id="todo-list"></div>
 
-            let todos = ['Get groceries', 'Wash car', 'Make dinner'];
-            todos.push('another todo');
+    <script>
+      const todos = ['Get groceries', 'Wash car', 'Make dinner'];
 
-            function addToDo(todoTitle) {
-                let element = document.createElement('div');
-                element.innerText = todoTitle;
-                document.body.appendChild(element);
-            }
+      render();
 
-            function testFunction(todo) {
-                //
-            }
+      function addTodo() {
+        const textbox = document.getElementById('todo-title');
+        const title = textbox.value;
+        todos.push(title);
 
-            addToDo(todo1);
-            addToDo(todo2);
-            addToDo(todo3);
+        render();
+      }
 
-        </script>        
-    </body>
+      function render() {
+        // reset our list
+        document.getElementById('todo-list').innerHTML = '';
+
+        todos.forEach(function (todoTitle) {
+          const element = document.createElement('div');
+          element.innerText = todoTitle;
+          const todoList = document.getElementById('todo-list');
+          todoList.appendChild(element);
+        });
+      }
+    </script>
+  </body>
 </html>
