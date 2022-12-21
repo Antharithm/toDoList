@@ -10,7 +10,8 @@
     <div id="todo-list"></div>
 
     <script>
-      const todos = [{
+      // MVC: Model Section
+      let todos = [{
         title: 'Get groceries',
         dueDate: '2022-12-20',
         id: 'id1'
@@ -24,9 +25,31 @@
         id: 'id3'
       }];
 
-        
-      render();
+      // Creates a todo
+      function createTodo(title, dueDate) {
+        const id = '' + new Date().getTime();
 
+        todos.push({
+          title: title,
+          dueDate: dueDate,
+          id: id
+        });
+      }
+
+      // Deletes a todo
+      function removeTodo(idToDelete) {
+        todos = todos.filter(function (todo) {
+          // If the ID of this todo matches idToDelete, return false
+          // For everything else, return true
+          if (todo.id === idToDelete) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+      }
+
+      // Controller Section
       function addTodo() {
         const textbox = document.getElementById('todo-title');
         const title = textbox.value;
@@ -34,23 +57,19 @@
         const datePicker = document.getElementById('date-picker');
         const dueDate = datePicker.value;
 
-        const id = new Date().getTime();
-
-        todos.push({
-          title: title,
-          dueDate: dueDate,
-          id: id
-        });
-
+        createTodo(title, dueDate);
         render();
       }
 
       function deleteTodo(event) {
         const deleteButton = event.target;
         const idToDelete = deleteButton.id;
-        
+
+        removeTodo(idToDelete);
+        render();
       }
 
+      // View Section
       function render() {
         // reset our list
         document.getElementById('todo-list').innerHTML = '';
